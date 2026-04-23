@@ -63,9 +63,13 @@ WHERE delivery_date IS NULL;
 DELETE FROM bookorder
 WHERE order_date < '2025-02-01';
 
+ALTER TABLE BookOrder
+ADD CONSTRAINT chk_delivery_date
+CHECK (delivery_date >= order_date);
+
 select * from BookOrder;
 
-SELECT title,author_name,status_name,
+SELECT title,author_name,
 	CASE 
 		WHEN status = 1 THEN "Còn hàng "
         ELSE "Hết hàng"
@@ -73,5 +77,5 @@ SELECT title,author_name,status_name,
 FROM Book;
 
 SELECT * FROM Book AS B
-JOIN 
-
+JOIN Category AS C
+ON B.category_id = C.category_id;
